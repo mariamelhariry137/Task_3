@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { use, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../api'
 
@@ -30,7 +30,10 @@ export default function AllPerks() {
 
 */
 
-  
+useEffect(()=>{
+  loadAllPerks()
+},[searchQuery, merchantFilter])
+
   useEffect(() => {
     // Extract all merchant names from perks array
     const merchants = perks
@@ -110,8 +113,8 @@ export default function AllPerks() {
  * Update state when user types in search box
  * update state when user selects filter
     */
+
     <div className="max-w-6xl mx-auto space-y-6">
-      
       {/* Page Title */}
       <div className="flex items-center justify-between">
         <h1 className="text-3xl font-bold">All Perks</h1>
@@ -136,6 +139,8 @@ export default function AllPerks() {
                 type="text"
                 className="input"
                 placeholder="Enter perk name..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
                 
               />
               <p className="text-xs text-zinc-500 mt-1">
@@ -151,6 +156,8 @@ export default function AllPerks() {
               </label>
               <select
                 className="input"
+                onChange={e => setMerchantFilter(e.target.value)}
+                value={merchantFilter}
                 
               >
                 <option value="">All Merchants</option>
@@ -168,7 +175,7 @@ export default function AllPerks() {
           <div className="flex gap-3 items-center">
             <button type="submit" className="btn bg-blue-600 text-white border-blue-600 hover:bg-blue-700">
               <span className="material-symbols-outlined text-sm align-middle">search</span>
-              {' '}Search Now
+              {useEffect=>(loadAllPerks) }Search Now
             </button>
             <button 
               type="button" 
